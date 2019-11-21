@@ -6,7 +6,7 @@ const ItemRow = ({ name }) => {
     <tr>
       <td>{name}</td>
       <td>
-        <Counter />
+        <Counter name={name} />
       </td>
     </tr>
   )

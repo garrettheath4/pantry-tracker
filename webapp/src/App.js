@@ -5,7 +5,7 @@ import './App.css'
 function App() {
   return (
     <div className="App">
-      <h1>Inventory</h1>
+      <h2>Pantry Groceries</h2>
       <InventoryTable />
     </div>
   )

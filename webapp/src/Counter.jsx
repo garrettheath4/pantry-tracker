@@ -1,20 +1,30 @@
 import React, { useState } from "react"
 
-const Counter = () => {
+const Counter = ({ name }) => {
   const [count, setCountState] = useState(5)
 
   const setCount = (newCount) => (
     () => {
       const nonNegCount = Math.max(newCount, 0)
       setCountState(nonNegCount)
-      fetch(`/api?name=apples&count=${nonNegCount}`)
+      fetch(`/api?name=${name.toLowerCase()}&count=${nonNegCount}`)
     }
   )
 
   return <>
-    <button onClick={setCount(count - 1)}>-</button>
-    <span>{count}</span>
-    <button onClick={setCount(count + 1)}>+</button>
+    <button
+      className="countButton"
+      onClick={setCount(count - 1)}
+    >
+      &minus;
+    </button>
+    <span className="countNumber">{count}</span>
+    <button
+      className="countButton"
+      onClick={setCount(count + 1)}
+    >
+      &#43;
+    </button>
   </>
 }
 export default Counter

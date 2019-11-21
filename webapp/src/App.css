@@ -1,5 +1,19 @@
 .App {
   margin: 20px;
+  font-size: 2em;
+}
+
+.countNumber {
+  display: inline-block;
+  min-width: 40px;
+  margin: 0 5px;
+  text-align: center;
+}
+
+.countButton {
+  width: 45px;
+  height: 45px;
+  font-size: 1em;
 }
 
 table {
@@ -8,7 +22,7 @@ table {
 
 th, td {
   border: 1px solid;
-  padding: 4px;
+  padding: 5px;
 }
 
 /* vim: set ts=2 sw=2 vts=2 sta sts=2 sr et ai: */
