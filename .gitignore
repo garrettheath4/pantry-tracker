@@ -1,3 +1,8 @@
+# START ignores specific to this project
+*~
+
+# END ignores specific to this project
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
