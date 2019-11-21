@@ -1,5 +1,6 @@
 # START ignores specific to this project
 *~
+*.swp
 
 # END ignores specific to this project
 
