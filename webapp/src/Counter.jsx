@@ -1,11 +1,20 @@
 import React, { useState } from "react"
 
 const Counter = () => {
-  const [count, setCount] = useState(5)
+  const [count, setCountState] = useState(5)
+
+  const setCount = (newCount) => (
+    () => {
+      const nonNegCount = Math.max(newCount, 0)
+      setCountState(nonNegCount)
+      fetch(`/api?name=apples&count=${nonNegCount}`)
+    }
+  )
+
   return <>
-    <button onClick={() => setCount(Math.max(count - 1, 0))}>-</button>
+    <button onClick={setCount(count - 1)}>-</button>
     <span>{count}</span>
-    <button onClick={() => setCount(Math.max(count + 1, 0))}>+</button>
+    <button onClick={setCount(count + 1)}>+</button>
   </>
 }
 export default Counter
