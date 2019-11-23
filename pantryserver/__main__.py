@@ -10,12 +10,13 @@ __maintainer__ = "Garrett Heath Koller"
 __email__ = "garrettheath4@gmail.com"
 __status__ = "Prototype"
 
-import staticserver
+from .basehandler import run as start
+from .requestrouter import RequestRouter
 
 if __name__ == "__main__":
     from sys import argv
 
     if len(argv) == 2:
-        staticserver.run(port=int(argv[1]))
+        start(handler_class=RequestRouter, port=int(argv[1]))
     else:
-        staticserver.run()
+        start(handler_class=RequestRouter, port=3000)

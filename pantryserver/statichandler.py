@@ -1,22 +1,23 @@
 from os import curdir, sep
 import re
-from http.server import HTTPServer
 
-from baseserver import BaseWebServer
+from .basehandler import BaseRequestHandler
 
 
-class StaticWebappServer(BaseWebServer):
+class StaticFileRequestHandler(BaseRequestHandler):
 
+    # noinspection PyPep8Naming
     def do_GET(self):
         content_types = {
             '.html': 'text/html',
             '.htm':  'text/html',
             '.ico':  'image/x-icon',
+            '.png':  'image/png',
             '.svg':  'image/svg+xml',
             '.css':  'text/css',
             '.js':   'application/javascript',
             '.json': 'application/json',
-            '.map':  'application/x-navimap'
+            '.map':  'application/x-navimap',
         }
         static_folder = 'webapp' + sep + 'build'
         file_extension_search = re.search('\\.[a-zA-Z]+$',
@@ -38,9 +39,7 @@ class StaticWebappServer(BaseWebServer):
             except IOError:
                 self._send_not_found()
         elif '.' in self.path:
-            # Request is probably for a file that is not an approved extension
+            print("Path does not have an approved extension - %s" % self.path)
             self._send_not_found()
         else:
             self._send_not_found()
-
-
