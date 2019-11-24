@@ -1,4 +1,4 @@
-from string import Template
+from string import Template as TStr
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 
@@ -10,7 +10,7 @@ class BaseRequestHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def _send_not_found(self):
-        t = Template("$path does not exist")
+        t = TStr("$path does not exist")
         self.send_error(404, "File Not Found", t.substitute(path=self.path))
 
     def _send_not_implemented(self):
@@ -19,8 +19,8 @@ class BaseRequestHandler(BaseHTTPRequestHandler):
                         " class")
 
     def _send_illegal_path_part(self, invalid_substring=""):
-        error_template = Template("Path requested contains illegal$sub substring - $path")
-        maybe_sub = Template(" '$inside'").substitute(inside=invalid_substring) if invalid_substring else ""
+        error_template = TStr("Path requested contains illegal$sub substring - $path")
+        maybe_sub = TStr(" '$inside'").substitute(inside=invalid_substring) if invalid_substring else ""
         error_message = error_template.substitute(sub=maybe_sub, path=self.path)
         self.send_error(403, "Illegal Path", error_message)
 
@@ -36,7 +36,7 @@ class BaseRequestHandler(BaseHTTPRequestHandler):
 def run(server_class=HTTPServer, handler_class=BaseRequestHandler, port=8080):
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
-    print(Template("Starting httpd on port $port ...").substitute(port=port))
+    print(TStr("Starting httpd on port $port ...").substitute(port=port))
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:

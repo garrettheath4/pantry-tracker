@@ -10,8 +10,8 @@ __maintainer__ = "Garrett Heath Koller"
 __email__ = "garrettheath4@gmail.com"
 __status__ = "Prototype"
 
-from .basehandler import run as start
-from .requestrouter import RequestRouter
+from pantryserver.api.basehandler import run as start
+from pantryserver.api.requestrouter import RequestRouter
 
 if __name__ == "__main__":
     from sys import argv

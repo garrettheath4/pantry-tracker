@@ -1,6 +1,3 @@
-from string import Template
-from http.server import HTTPServer
-
 from .basehandler import BaseRequestHandler
 from .statichandler import StaticFileRequestHandler
 from .apihandler import ApiRequestHandler
