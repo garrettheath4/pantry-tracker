@@ -73,7 +73,7 @@ class GSheet:
         index_item_row = self._find_indexed_item_row(item_name)
         if not index_item_row:
             return None
-        index, item_row = index_item_row
+        (index, item_row) = index_item_row
         return item_row
 
     def contains_positive(self, item_name: str) -> bool:
@@ -85,7 +85,7 @@ class GSheet:
             logging.warning("Row does not contain at least three columns: %s",
                             item_row)
             return False
-        _, item_quantity, _ = item_row
+        [_, item_quantity, _] = item_row
         return float(item_quantity) > 0
 
     def __contains__(self, item):
@@ -99,26 +99,26 @@ class GSheet:
             logging.warning("Row does not contain at least three columns: %s",
                             item_row)
             return 0.0
-        _, item_quantity, _ = item_row
+        [_, item_quantity, _] = item_row
         return float(item_quantity)
 
     def __getitem__(self, item):
         return self.fetch_item_quantity(item)
 
     def send_item_quantity(self, item_name: str, quantity: float):
-        # TODO
         indexed_item_row = self._find_indexed_item_row(item_name)
         if not indexed_item_row:
             return False
-        index, item_row = indexed_item_row
+        (index, item_row) = indexed_item_row
+        # TODO
 
     def __str__(self):
         values = self.fetch_all_rows()
         lines = []
         for row in values:
-            # Print columns A and B, which correspond to indices 0 and 1.
+            [name, qty, unit] = row
             lines.append(TStr("$item: $qty $unit")
-                         .substitute(item=row[0], qty=row[1], unit=row[2]))
+                         .substitute(item=name, qty=qty, unit=unit))
         return "\n".join(lines)
 
 
