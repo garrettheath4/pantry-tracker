@@ -1,11 +1,4 @@
-from string import Template as TStr
-
-DEBUG = True
-
-
-def log(message):
-    if DEBUG:
-        print(message)
+import logging
 
 
 class Inventory:
@@ -18,38 +11,37 @@ class Inventory:
     def contains_positive(self, item_name: str):
         return item_name in self.items and self.items[item_name] > 0
 
-    def get(self, item_name: str):
+    def get(self, item_name: str) -> float:
         if item_name in self.items:
             return self.items[item_name]
         else:
-            log(TStr("Item '$item' does not exist in inventory; reporting 0"
-                     " inventory").substitute(item=item_name))
-            return 0
+            logging.debug("Item '%s' does not exist in inventory; reporting 0"
+                          " inventory", item_name)
+            return 0.0
 
     def update(self, item_name: str, quantity: float):
-        if DEBUG and item_name not in self.items:
-            log(TStr("Creating item $item with $count items")
-                .substitute(item=item_name, count=quantity))
+        if item_name not in self.items:
+            logging.info("Creating item %s with %1.1f items", item_name, quantity)
         self.items[item_name] = max(float(quantity), 0.0)
-        if self.items[item_name] <= 0:
-            log(TStr("Item now has 0 inventory for $item")
-                .substitute(item=item_name))
-            if quantity != 0.0:
-                log(TStr("(tried to set to $quantity)")
-                    .substitute(quantity=quantity))
+        if self.items[item_name] <= 0.0:
+            if quantity == 0.0:
+                logging.info("Item now has 0 inventory for %s", item_name)
+            else:
+                logging.warning("Item now has 0 inventory for %s (tried to set"
+                                " to %1.1f)", item_name, quantity)
 
     def increment(self, item_name: str):
         if item_name in self.items:
-            self.items[item_name] = max(self.items[item_name], 0) + 1
+            self.items[item_name] = max(self.items[item_name], 0.0) + 1
         else:
             self.items[item_name] = 1
         return self.items[item_name]
 
     def decrement(self, item_name: str):
         if item_name in self.items:
-            self.items[item_name] = max(self.items[item_name] - 1, 0)
+            self.items[item_name] = max(self.items[item_name] - 1.0, 0.0)
         else:
-            self.items[item_name] = 0
+            self.items[item_name] = 0.0
         return self.items[item_name]
 
     def __str__(self):

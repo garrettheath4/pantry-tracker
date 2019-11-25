@@ -1,17 +1,11 @@
 from __future__ import print_function
 from string import Template as TStr
+import logging
 import pickle
 import os.path
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
-
-DEBUG = True
-
-
-def log(message):
-    if DEBUG:
-        print(message)
 
 
 class GSheet:
@@ -66,15 +60,13 @@ class GSheet:
         match_idx_rows = [(i, r) for i, r in enumerate(values)
                           if str(r[0]).lower().startswith(item_name.lower())]
         if not match_idx_rows:
-            log(TStr("Item not found in sheet: $item")
-                .substitute(item=item_name))
             return None
         indexed_item_row = match_idx_rows[0]
         # item_index = 0..MAX_ROW_INDEX
         # item_row: item_name, item_quantity, item_quantity_unit
         if len(match_idx_rows) > 1:
-            log(TStr("Found $qty matches in sheet; only returning first: $one")
-                .substitute(qty=len(match_idx_rows), one=indexed_item_row))
+            logging.warning("Found %d matches; only returning first: %s",
+                            len(match_idx_rows), indexed_item_row)
         return indexed_item_row
 
     def find_item_row(self, item_name: str):
@@ -87,12 +79,11 @@ class GSheet:
     def contains_positive(self, item_name: str) -> bool:
         item_row = self.find_item_row(item_name)
         if not item_row:
-            log(TStr("Item not found in sheet: $item")
-                .substitute(item=item_name))
+            logging.warning("Item not found in sheet: %s", item_name)
             return False
         if len(item_row) < 2:
-            log(TStr("Row does not contain at least three columns: $row")
-                .substitute(row=item_row))
+            logging.warning("Row does not contain at least three columns: %s",
+                            item_row)
             return False
         _, item_quantity, _ = item_row
         return float(item_quantity) > 0
@@ -105,8 +96,8 @@ class GSheet:
         if not item_row:
             return 0.0
         if len(item_row) < 3:
-            log(TStr("Row does not contain at least three columns: $row")
-                .substitute(row=item_row))
+            logging.warning("Row does not contain at least three columns: %s",
+                            item_row)
             return 0.0
         _, item_quantity, _ = item_row
         return float(item_quantity)
@@ -120,7 +111,6 @@ class GSheet:
         if not indexed_item_row:
             return False
         index, item_row = indexed_item_row
-
 
     def __str__(self):
         values = self.fetch_all_rows()
@@ -137,3 +127,5 @@ if __name__ == "__main__":
     print(gs)
     print()
     print(TStr("Bananas: $qty").substitute(qty=gs.fetch_item_quantity("Banana")))
+    print(TStr("Nonexistent item: $qty")
+          .substitute(qty=gs.fetch_item_quantity("Nonexistent item")))
