@@ -1,4 +1,5 @@
 credentials.json
+token.pickle
 
 # Created by https://www.gitignore.io/api/react,python,virtualenv,vim,intellij,macos
 # Edit at https://www.gitignore.io/?templates=react,python,virtualenv,vim,intellij,macos

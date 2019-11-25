@@ -15,8 +15,8 @@ class Inventory:
             items = dict()
         self.items = items
 
-    def contains(self, item):
-        return item in self.items and self.items[item] > 0
+    def contains_positive(self, item_name):
+        return item_name in self.items and self.items[item_name] > 0
 
     def get(self, item):
         if item in self.items:
