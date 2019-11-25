@@ -127,5 +127,7 @@ if __name__ == "__main__":
     print(gs)
     print()
     print(TStr("Bananas: $qty").substitute(qty=gs.fetch_item_quantity("Banana")))
+    print(TStr("Tuna cans: $qty")
+          .substitute(qty=gs.fetch_item_quantity("Tuna cans")))
     print(TStr("Nonexistent item: $qty")
           .substitute(qty=gs.fetch_item_quantity("Nonexistent item")))

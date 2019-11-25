@@ -1,5 +1,7 @@
 import logging
 
+from .gsheet import GSheet
+
 
 class Inventory:
 
@@ -7,6 +9,15 @@ class Inventory:
         if items is None:
             items = dict()
         self.items = items
+        if type(items) == dict:
+            self.source = "dict"
+        elif type(items) == GSheet:
+            self.source = "GSheet"
+            logging.debug("Inventory instantiated with GSheet object")
+        else:
+            self.source = str(type(items))
+            logging.warning("Inventory instantiated with unknown items object"
+                            " of type %s", type(items))
 
     def contains_positive(self, item_name: str):
         return item_name in self.items and self.items[item_name] > 0

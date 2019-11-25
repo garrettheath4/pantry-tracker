@@ -23,6 +23,7 @@ class TestDictInventory(unittest.TestCase):
         item_name = "Milk"
         item_quantity = 1.8
         inv = Inventory()
+        self.assertEqual(inv.source, "dict")
         self.assertEqual(inv.get(item_name), 0.0)
         inv.update(item_name, item_quantity)
         self.assertEqual(inv.get(item_name), item_quantity)
@@ -32,6 +33,17 @@ class TestDictInventory(unittest.TestCase):
         item_quantity = 1.8
         inv = Inventory()
         inv.update(item_name, item_quantity)
+        self.assertTrue(inv.contains_positive(item_name))
+
+
+class TestGSheetInventory(unittest.TestCase):
+
+    # noinspection SpellCheckingInspection
+    def test_gsheet_get(self):
+        item_name = "Peanut butter"
+        inv = Inventory(GSheet())
+        self.assertEqual(inv.source, "GSheet")
+        self.assertGreater(inv.get(item_name), 0.0)
         self.assertTrue(inv.contains_positive(item_name))
 
 
