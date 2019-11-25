@@ -3,11 +3,12 @@ from urllib.parse import urlparse, parse_qs
 
 from .basehandler import BaseRequestHandler
 from pantryserver.storage.inventory import Inventory
+from pantryserver.storage.gsheet import GSheet
 
 
 class ApiRequestHandler(BaseRequestHandler):
 
-    inventory = Inventory()
+    inventory = Inventory(GSheet())
 
     # noinspection PyPep8Naming
     def do_GET(self):
@@ -22,7 +23,6 @@ class ApiRequestHandler(BaseRequestHandler):
             itemName = parsed['name'][0]
             itemCount = parsed['count'][0]
             ApiRequestHandler.inventory.update(itemName, int(itemCount))
-            logging.debug("Inventory: %s", ApiRequestHandler.inventory)
             self.wfile.write(
                 bytes(str(ApiRequestHandler.inventory.get(itemName)), "utf-8"))
         else:

@@ -122,6 +122,9 @@ class GSheet:
                                             valueInputOption="RAW").execute()
         return response.get('updatedCells') == 1
 
+    def __setitem__(self, key, value):
+        self.send_item_quantity(str(key), float(value))
+
     def __str__(self):
         values = self.fetch_all_rows()
         lines = []
