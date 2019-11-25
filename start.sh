@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-venv/bin/python3 -m pantryserver
+pipenv run python3 -m pantryserver
