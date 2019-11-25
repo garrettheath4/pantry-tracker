@@ -110,7 +110,15 @@ class GSheet:
         if not indexed_item_row:
             return False
         (index, item_row) = indexed_item_row
-        # TODO
+        coord = "B" + str(index + 1 + 1)
+        body = {
+            "range": coord,
+            "values": [[quantity]]
+        }
+        response = self.data_fetcher.update(spreadsheetId=self.SPREADSHEET_ID,
+                                            range=coord, body=body,
+                                            valueInputOption="RAW").execute()
+        return response.get('updatedCells') == 1
 
     def __str__(self):
         values = self.fetch_all_rows()
@@ -131,3 +139,20 @@ if __name__ == "__main__":
           .substitute(qty=gs.fetch_item_quantity("Tuna cans")))
     print(TStr("Nonexistent item: $qty")
           .substitute(qty=gs.fetch_item_quantity("Nonexistent item")))
+    dairy_milk_name = "Dairy milk"
+    orig_dairy_milk_qty = gs.fetch_item_quantity(dairy_milk_name)
+    new_dairy_milk_qty = 9.9
+    print(TStr("$name: $qty")
+          .substitute(name=dairy_milk_name, qty=orig_dairy_milk_qty))
+    print(TStr("Updating $name to $qty...")
+          .substitute(name=dairy_milk_name, qty=new_dairy_milk_qty))
+    gs.send_item_quantity("Dairy milk", new_dairy_milk_qty)
+    print(TStr("$name: $qty")
+          .substitute(name=dairy_milk_name,
+                      qty=gs.fetch_item_quantity(dairy_milk_name)))
+    print(TStr("Updating $name to $qty...")
+          .substitute(name=dairy_milk_name, qty=orig_dairy_milk_qty))
+    gs.send_item_quantity("Dairy milk", orig_dairy_milk_qty)
+    print(TStr("$name: $qty")
+          .substitute(name=dairy_milk_name,
+                      qty=gs.fetch_item_quantity(dairy_milk_name)))
