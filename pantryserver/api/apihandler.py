@@ -28,7 +28,7 @@ class ApiRequestHandler(BaseRequestHandler):
             self.end_headers()
             itemName = parsed['name'][0]
             itemCount = parsed['count'][0]
-            ApiRequestHandler.inventory.set(itemName, int(itemCount))
+            ApiRequestHandler.inventory.update(itemName, int(itemCount))
             log(TStr("Inventory: $items")
                 .substitute(items=ApiRequestHandler.inventory))
             self.wfile.write(
