@@ -22,7 +22,7 @@ class GSheet:
     # The ID and range of a sample spreadsheet.
     # noinspection SpellCheckingInspection
     SPREADSHEET_ID = '1J3EZrysnfOrE6XVLJodydwPXQbHvYszzaZ67CFB9E5w'
-    RANGE_NAME = 'At Work!A2:C50'
+    RANGE_NAME = 'At Work!A2:C'
 
     def __init__(self):
         """Shows basic usage of the Sheets API.

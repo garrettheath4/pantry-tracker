@@ -10,6 +10,11 @@ class TestPantryServer(unittest.TestCase):
         gs = GSheet()
         self.assertTrue(gs.contains_positive("Peanut butter"))
 
+    # noinspection SpellCheckingInspection
+    def test_gsheet_nonexist_item(self):
+        gs = GSheet()
+        self.assertEqual(gs.fetch_item_quantity("Nonexistent item"), 0)
+
 
 if __name__ == '__main__':
     unittest.main()
