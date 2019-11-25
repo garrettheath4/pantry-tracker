@@ -108,6 +108,8 @@ class GSheet:
     def send_item_quantity(self, item_name: str, quantity: float):
         indexed_item_row = self._find_indexed_item_row(item_name)
         if not indexed_item_row:
+            logging.warning("Item not found in Google Spreadsheet: %s",
+                            item_name)
             return False
         (index, item_row) = indexed_item_row
         coord = "B" + str(index + 1 + 1)
