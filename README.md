@@ -3,7 +3,13 @@ A web app that helps you track what groceries you have in your pantry and fridge
 
 ## Installation
 
-
+```bash
+sudo apt install python3
+pip3 install pipenv
+git clone https://github.com/garrettheath4/pantry-tracker.git
+cd pantry-tracker
+pipenv install
+```
 
 ## Usage
 
