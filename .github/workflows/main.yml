@@ -14,7 +14,7 @@ jobs:
     - name: Install NPM packages
       run: cd webapp && npm install
     - name: Run unit tests for React webapp
-      run: cd webapp && npm run test
+      run: cd webapp && CI=true npx react-scripts test --env=jsdom
     - name: Create production build of React webapp
       run: cd webapp && npm run build
     - name: Setup Python environment
