@@ -1,7 +1,12 @@
 # pantry-tracker
-A web app that helps you track what groceries you have in your pantry and fridge so you know what you might be low on when you go to the store.
+
+A web app that helps you track what groceries you have in your pantry and fridge
+so you know what you might be low on when you go to the store.
 
 ## Installation
+
+You'll need Node.js to build the React UI and Python 3 to run the server.
+Installing Python 3 is easy:
 
 ```bash
 sudo apt install python3
@@ -9,6 +14,16 @@ pip3 install pipenv
 git clone https://github.com/garrettheath4/pantry-tracker.git
 cd pantry-tracker
 pipenv install
+```
+
+You might need to follow the instructions in the _Install Node.js on Raspberry
+Pi_ section below if you can't install it with _apt_.
+
+```bash
+# Install Node.js and npm before this
+cd webapp/
+npm install
+npm run build
 ```
 
 ## Usage
@@ -24,6 +39,14 @@ from this repository's top level. Or you can directly run:
 ```bash
 pipenv run python3 -m pantryserver
 ```
+
+## Development
+
+* From top-level folder of repo:
+    * `pipenv run python3 -m test` - Run Python unit tests only (no React tests)
+* From `webapp/` folder of repo:
+    * `npm test` - Run React unit tests only (no Python tests)
+    * `npm start` - Compile and launch the React UI in dev mode (no Python API)
 
 ## Dependencies
 
