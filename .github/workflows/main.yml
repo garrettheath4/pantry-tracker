@@ -1,4 +1,4 @@
-name: CI
+name: Build and test
 
 on: [push]
 
@@ -12,7 +12,7 @@ jobs:
     - name: Setup Node.js for use with actions
       uses: actions/setup-node@v1.1.0
     - name: Install NPM packages
-      run: npm install
+      run: cd webapp && npm install
     - name: Run unit tests for React webapp
       run: npm test
     - name: Create production build of React webapp
