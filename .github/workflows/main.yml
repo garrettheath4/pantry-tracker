@@ -22,4 +22,4 @@ jobs:
     - name: Install pipenv
       uses: dschep/install-pipenv-action@v1
     - name: Run unit tests for Python 3 server
-      run: pipenv run test.py
+      run: pipenv --three --bare run python3 -m test
