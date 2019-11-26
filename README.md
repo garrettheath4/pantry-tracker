@@ -16,11 +16,11 @@ cd pantry-tracker
 pipenv install
 ```
 
-You might need to follow the instructions in the _Install Node.js on Raspberry
-Pi_ section below if you can't install it with _apt_.
+***Note:*** You might need to follow the instructions in the _Install Node.js
+on Raspberry Pi_ section below if you can't install it with _apt_.
 
 ```bash
-# Install Node.js and npm before this
+sudo apt install nodejs npm
 cd webapp/
 npm install
 npm run build
