@@ -3,7 +3,7 @@ import ItemRow from "./ItemRow.jsx"
 
 const InventoryTable = () => {
   return (
-    <table>
+    <table className="pure-table">
       <thead>
         <tr>
           <th>Item</th>

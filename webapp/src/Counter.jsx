@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 
-let invalidApiWarned = false
+let apiFetchInvalidWarned = false
 
 const Counter = ({ name }) => {
   const [count, setCountState] = useState(0)
@@ -15,9 +15,10 @@ const Counter = ({ name }) => {
           if (!Number.isNaN(num)) {
             setCountState(Number(res))
           } else {
-            if (!invalidApiWarned) {
-              console.log("Invalid response from API. Are we in DEV mode?")
-              invalidApiWarned = true
+            if (!apiFetchInvalidWarned) {
+              console.log("Invalid response when fetching inventory from API.",
+                "Are we in DEV mode?")
+              apiFetchInvalidWarned = true
             }
           }
         })
@@ -36,8 +37,14 @@ const Counter = ({ name }) => {
         .then(res => res.text())
         .then(res => {
           if (nonNegCount !== Number(res)) {
-            console.log("Warning: Got", res.text(), "from API but expected",
-              nonNegCount)
+            const resStr = String(res)
+            if (resStr.includes("</html>")) {
+              console.log("Warning: Received HTML response from API instead of",
+                "expected response of", nonNegCount)
+            } else {
+              console.log("Warning: Did not receive expected response of",
+                nonNegCount, "from API")
+            }
           }
         })
         .catch(err => console.log("Unable to set item count through API", err))
@@ -46,17 +53,17 @@ const Counter = ({ name }) => {
 
   return <>
     <button
-      className="countButton"
+      className="pure-button"
       onClick={setCount(count - 1)}
     >
-      &minus;
+      <i className="fas fa-minus" />
     </button>
     <span className="countNumber">{count}</span>
     <button
-      className="countButton"
+      className="pure-button"
       onClick={setCount(count + 1)}
     >
-      &#43;
+      <i className="fas fa-plus" />
     </button>
   </>
 }

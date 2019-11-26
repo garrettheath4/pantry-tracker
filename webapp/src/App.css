@@ -1,6 +1,14 @@
+html, body {
+  font-family: 'Roboto', sans-serif;
+}
+
 .App {
   margin: 20px;
-  font-size: 2em;
+  font-size: 1.5em;
+}
+
+.greeting {
+  margin-bottom: 15px;
 }
 
 .countNumber {

@@ -5,8 +5,12 @@ import './App.css'
 function App() {
   return (
     <div className="App">
-      <h2>Pantry Groceries</h2>
-      <InventoryTable />
+      <div className="pure-u">
+        <div className="greeting">
+          What food do we have? We'll order more if we get low.
+        </div>
+        <InventoryTable />
+      </div>
     </div>
   )
 }
