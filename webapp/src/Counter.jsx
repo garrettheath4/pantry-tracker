@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react"
 
+let invalidApiWarned = false
+
 const Counter = ({ name }) => {
   const [count, setCountState] = useState(0)
 
@@ -8,7 +10,17 @@ const Counter = ({ name }) => {
       const res = await fetch(`/api?name=${name.toLowerCase()}`)
       res
         .text()
-        .then(res => setCountState(Number(res)))
+        .then(res => {
+          const num = Number(res)
+          if (!Number.isNaN(num)) {
+            setCountState(Number(res))
+          } else {
+            if (!invalidApiWarned) {
+              console.log("Invalid response from API. Are we in DEV mode?")
+              invalidApiWarned = true
+            }
+          }
+        })
         .catch(err => console.log("Unable to fetch count for", name, ".", err))
     }
 
