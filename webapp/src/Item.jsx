@@ -54,7 +54,7 @@ const Item = ({ name }) => {
   )
 
   return (
-    <div className="pure-u-2-5">
+    <div className="pure-u-1-2">
       <ItemButton
         increments={true}
         onClickHandler={countHandlerFactory(count - 1)}

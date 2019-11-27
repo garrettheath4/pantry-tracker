@@ -3,9 +3,9 @@ import Item from "./Item.jsx"
 
 const Inventory = ({ itemNames }) => {
   return (
-    <>
+    <div className="pure-g">
       {itemNames.map((itemName) => <Item name={itemName} key={itemName} />)}
-    </>
+    </div>
   )
 }
 export default Inventory
