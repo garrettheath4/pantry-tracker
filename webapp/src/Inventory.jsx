@@ -1,5 +1,5 @@
 import React from "react"
-import ItemRow from "./ItemRow.jsx"
+import Item from "./ItemRow.jsx"
 
 const Inventory = () => {
   return (
@@ -11,8 +11,8 @@ const Inventory = () => {
         </tr>
       </thead>
       <tbody>
-        <ItemRow name="Apples" />
-        <ItemRow name="Bananas" />
+        <Item name="Apples" />
+        <Item name="Bananas" />
       </tbody>
     </table>
   )
