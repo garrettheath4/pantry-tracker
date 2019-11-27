@@ -1,20 +1,12 @@
 import React from "react"
-import Item from "./ItemRow.jsx"
+import Item from "./Item.jsx"
 
 const Inventory = () => {
   return (
-    <table className="pure-table">
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th>Qty</th>
-        </tr>
-      </thead>
-      <tbody>
-        <Item name="Apples" />
-        <Item name="Bananas" />
-      </tbody>
-    </table>
+    <>
+      <Item name="Apples" />
+      <Item name="Bananas" />
+    </>
   )
 }
 export default Inventory
