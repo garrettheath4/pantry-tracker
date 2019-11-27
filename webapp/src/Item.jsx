@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import ItemCount from "./ItemCount"
+import ItemButton from "./ItemButton"
 
 let apiFetchInvalidWarned = false
 
@@ -30,7 +31,7 @@ const Item = ({ name }) => {
     fetchData();
   })
 
-  const setCount = (newCount) => (
+  const setCountFnFactory = (newCount) => (
     () => {
       const nonNegCount = Math.max(newCount, 0)
       setCountState(nonNegCount)
@@ -54,19 +55,15 @@ const Item = ({ name }) => {
 
   return (
     <div className="pure-u-2-5">
-      <button
-        className="pure-button"
-        onClick={setCount(count - 1)}
-      >
-        <i className="fas fa-minus" />
-      </button>
+      <ItemButton
+        increments={true}
+        onClickHandler={setCountFnFactory(count - 1)}
+      />
       <ItemCount count={count} name={name} />
-      <button
-        className="pure-button"
-        onClick={setCount(count + 1)}
-      >
-        <i className="fas fa-plus" />
-      </button>
+      <ItemButton
+        increments={false}
+        onClickHandler={setCountFnFactory(count + 1)}
+      />
     </div>
   )
 }
