@@ -56,12 +56,12 @@ const Item = ({ name }) => {
   return (
     <div className="pure-u-1-2">
       <ItemButton
-        increments={true}
+        increments={false}
         onClickHandler={countHandlerFactory(count - 1)}
       />
       <ItemCount count={count} name={name} />
       <ItemButton
-        increments={false}
+        increments={true}
         onClickHandler={countHandlerFactory(count + 1)}
       />
     </div>
