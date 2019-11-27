@@ -1,11 +1,10 @@
 import React from "react"
 import Item from "./Item.jsx"
 
-const Inventory = () => {
+const Inventory = ({ itemNames }) => {
   return (
     <>
-      <Item name="Apples" />
-      <Item name="Bananas" />
+      {itemNames.map((itemName) => <Item name={itemName} key={itemName} />)}
     </>
   )
 }

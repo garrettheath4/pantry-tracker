@@ -9,7 +9,7 @@ function App() {
         <div className="greeting">
           What food do we have? We'll order more if we get low.
         </div>
-        <Inventory />
+        <Inventory itemNames={["Apples", "Bananas"]} />
       </div>
     </div>
   )

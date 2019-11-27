@@ -31,7 +31,7 @@ const Item = ({ name }) => {
     fetchData();
   })
 
-  const setCountFnFactory = (newCount) => (
+  const countHandlerFactory = (newCount) => (
     () => {
       const nonNegCount = Math.max(newCount, 0)
       setCountState(nonNegCount)
@@ -57,12 +57,12 @@ const Item = ({ name }) => {
     <div className="pure-u-2-5">
       <ItemButton
         increments={true}
-        onClickHandler={setCountFnFactory(count - 1)}
+        onClickHandler={countHandlerFactory(count - 1)}
       />
       <ItemCount count={count} name={name} />
       <ItemButton
         increments={false}
-        onClickHandler={setCountFnFactory(count + 1)}
+        onClickHandler={countHandlerFactory(count + 1)}
       />
     </div>
   )
