@@ -3,7 +3,7 @@ import React from "react"
 const ItemButton = ({ onClickHandler, increments }) => {
   return (
     <button
-      className="pure-button"
+      className="pure-u-1-4 pure-button"
       onClick={onClickHandler}
     >
       {increments

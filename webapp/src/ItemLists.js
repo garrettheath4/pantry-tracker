@@ -1,0 +1,30 @@
+export const communalItemNames = [
+  "apples",
+  "bananas",
+]
+
+export const garrettItemNames = [
+  "tuna salad",
+  "bread",
+  "cheese",
+  "lettuce",
+  "mayonnaise",
+  "tuna cans",
+  "chopped veggies",
+  "relish (backup)",
+  "soylent Mocha drink",
+  "soylent Mint Choc drink",
+  "soylent Mocha powder",
+  "soy milk",
+  "chocolate syrup",
+  "cereal",
+  "coke (big)",
+  "coke (small)",
+  "coke Zero (small)",
+  "steamable meals",
+  "noodle bowls",
+  "protein bars",
+  "chip bags",
+  "dairy milk",
+  "peanut butter",
+]
