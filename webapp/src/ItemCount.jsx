@@ -1,7 +1,7 @@
 import React from "react"
 
 const ItemCount = ({ count, name }) => {
-  return <span className="pure-u-1-3 countNumber">{count} {name}</span>
+  return <span className="pure-u-3-4 countNumber">{count} {name}</span>
 }
 export default ItemCount
 

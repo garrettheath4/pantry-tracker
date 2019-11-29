@@ -3,7 +3,7 @@ import Item from "./Item.jsx"
 
 const Inventory = ({ itemNames }) => {
   return (
-    <div className="pure-g">
+    <div className="pure-g inventoryGrid">
       {itemNames.map((itemName) => <Item name={itemName} key={itemName} />)}
     </div>
   )

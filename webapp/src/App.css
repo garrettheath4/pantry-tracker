@@ -3,7 +3,6 @@ html, body {
 }
 
 .App {
-  margin: 20px;
   font-size: 1.3em;
 }
 
@@ -12,13 +11,17 @@ html, body {
 }
 
 .inventoryHeader {
-  margin: 30px 0 10px 0;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.inventoryGrid {
+  margin-bottom: 20px;
 }
 
 .countNumber {
   display: inline-block;
   min-width: 40px;
-  margin: 0 5px;
   text-align: center;
 }
 
