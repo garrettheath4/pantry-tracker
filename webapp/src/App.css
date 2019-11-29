@@ -15,6 +15,12 @@ html, body {
   text-align: center;
 }
 
+.showButton {
+  border: 1px solid lightgray;
+  border-radius: 2px;
+  color: lightgray;
+}
+
 .inventoryGrid {
   margin-bottom: 20px;
 }

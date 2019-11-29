@@ -6,7 +6,7 @@ import "./App.css"
 function App() {
   // Raspberry Pi touchscreen resolution is 800 x 480
 
-  const [garrettItemsVisible, setGarrettItemsVisible] = useState(true)
+  const [garrettItemsVisible, setGarrettItemsVisible] = useState(false)
 
   const toggleGarrettItemsVisible = () =>
     setGarrettItemsVisible(!garrettItemsVisible)
@@ -17,7 +17,7 @@ function App() {
       <Inventory itemNames={communalItemNames} />
       <div className="inventoryHeader">
         <button
-          className="pure-button"
+          className="showButton"
           onClick={toggleGarrettItemsVisible}
         >
           Show Garrett's items
