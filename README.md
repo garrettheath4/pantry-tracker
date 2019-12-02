@@ -13,6 +13,7 @@ sudo apt install python3
 pip3 install pipenv
 git clone https://github.com/garrettheath4/pantry-tracker.git
 cd pantry-tracker
+sudo cp ./init.d /etc/init.d/pantry-tracker && sudo chmod +x /etc/init.d/pantry-tracker && sudo update-rc.d pantry-tracker defaults
 pipenv install
 ```
 
@@ -29,7 +30,13 @@ npm run build
 
 ## Usage
 
-To start the web server, just run:
+To start the web server as a service, run:
+
+```bash
+service pantry-tracker start
+```
+
+To run the web server directly, just run:
 
 ```bash
 ./start.sh
