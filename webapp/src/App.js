@@ -18,7 +18,11 @@ function App() {
 
   return (
     <div className="App">
-      <div className="inventoryHeader">Communal Snack Items</div>
+      <h2 className="inventoryHeader">Snack Item Tracker</h2>
+      <h5 className="inventorySubheader">
+        Help us keep track of what snack items we have so we can know when to
+        get more if we run low.
+      </h5>
       <Inventory itemNames={communalItemNames} />
       <div className="inventoryHeader">
         <button
