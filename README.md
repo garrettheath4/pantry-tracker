@@ -21,6 +21,7 @@ on Raspberry Pi_ section below if you can't install it with _apt_.
 
 ```bash
 sudo apt install nodejs npm
+npm install npm@latest -g
 cd webapp/
 npm install
 npm run build
