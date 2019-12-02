@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
 
-pipenv run python3 -m pantryserver
+# Switch to this script's directory (in case it's called from a different working directory)
+cd "$( dirname "${BASH_SOURCE[0]}" )" || exit
+
+pipenv install && pipenv run python3 -m pantryserver
