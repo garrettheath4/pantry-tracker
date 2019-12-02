@@ -1,9 +1,15 @@
 import React from "react"
+import classnames from "classnames";
+
 import Item from "./Item.jsx"
 
 const Inventory = ({ itemNames }) => {
   return (
-    <div className="pure-g inventoryGrid">
+    <div className={classnames(
+      "pure-g",
+      "inventoryGrid",
+      { inventoryGridSmall: itemNames.length <= 2 }
+    )}>
       {itemNames.map((itemName) => <Item name={itemName} key={itemName} />)}
     </div>
   )

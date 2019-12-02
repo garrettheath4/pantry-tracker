@@ -35,6 +35,10 @@ html, body {
   margin-bottom: 20px;
 }
 
+.inventoryGridSmall {
+  grid-template-columns: repeat(2, 1fr);
+}
+
 .item {
   margin: 20px 0;
   text-align: center;

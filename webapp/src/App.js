@@ -30,8 +30,8 @@ function App() {
           onClick={toggleGarrettItemsVisible}
         >
           {garrettItemsVisible
-            && "Hide Garrett's items"
-            || "Show Garrett's items"}
+            ? "Hide Garrett's items"
+            : "Show Garrett's items"}
         </button>
       </div>
       {garrettItemsVisible
