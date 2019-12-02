@@ -1,7 +1,12 @@
 import React, { useState } from "react"
+import { library as fontAwesomeLibrary } from "@fortawesome/fontawesome-svg-core"
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons"
+
 import Inventory from "./Inventory.jsx"
 import { communalItemNames, garrettItemNames } from "./ItemLists"
 import "./App.css"
+
+fontAwesomeLibrary.add(faMinus, faPlus)
 
 function App() {
   // Raspberry Pi touchscreen resolution is 800 x 480
@@ -13,7 +18,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className="inventoryHeader">Communal Items</div>
+      <div className="inventoryHeader">Communal Snack Items</div>
       <Inventory itemNames={communalItemNames} />
       <div className="inventoryHeader">
         <button

@@ -1,15 +1,16 @@
 import React from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const ItemButton = ({ onClickHandler, increments }) => {
   return (
     <div className="pure-u-1-8">
       <button
-        className="pure-button"
+        className="pure-button countButton"
         onClick={onClickHandler}
       >
         {increments
-          ? <i className="fas fa-minus" />
-          : <i className="fas fa-minus" />}
+          ? <FontAwesomeIcon size="2x" icon="plus" />
+          : <FontAwesomeIcon size="2x" icon="minus" />}
       </button>
     </div>
   )

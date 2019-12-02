@@ -19,22 +19,31 @@ html, body {
   border: 1px solid lightgray;
   border-radius: 2px;
   color: lightgray;
+  background-color: white;
 }
 
 .inventoryGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  min-height: 480px;
   margin-bottom: 20px;
+}
+
+.item {
+  margin: 20px 0;
+  text-align: center;
 }
 
 .countNumber {
   display: inline-block;
-  min-width: 40px;
+  min-width: 120px;
+  margin: 15px 0;
   text-align: center;
 }
 
 .countButton {
-  width: 45px;
-  height: 45px;
-  font-size: 1em;
+  width: 70px;
+  height: 70px;
 }
 
 table {
