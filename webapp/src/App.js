@@ -29,11 +29,13 @@ function App() {
           className="showButton"
           onClick={toggleGarrettItemsVisible}
         >
-          Show Garrett's items
+          {garrettItemsVisible
+            && "Hide Garrett's items"
+            || "Show Garrett's items"}
         </button>
       </div>
       {garrettItemsVisible
-      && <Inventory itemNames={garrettItemNames} />}
+        && <Inventory itemNames={garrettItemNames} />}
     </div>
   )
 }
