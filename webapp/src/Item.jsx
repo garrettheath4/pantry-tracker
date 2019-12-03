@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react"
+
 import ItemCount from "./ItemCount"
 import ItemButton from "./ItemButton"
 import useDebounce from "./useDebounce"
+import { minusDeltaGenerator, nonNegNum, plusDeltaGenerator } from "./numbers"
 
 let warnedAboutHtmlRespFromFetch = false
 
 const Item = ({ item }) => {
   const { name } = item
-  const plusFn = (x) => Math.max((x || 0) + (item.increment || 1), 0)
-  const minusFn = (x) => Math.max((x || 0) - (item.decrement || 1), 0)
+  const plusDelta = plusDeltaGenerator(item.increment)
+  const minusDelta = minusDeltaGenerator(item.decrement)
 
   const [count, setCountState] = useState(undefined)
 
@@ -60,12 +62,12 @@ const Item = ({ item }) => {
     <div className="pure-u-1-2 item">
       <ItemButton
         increments={true}
-        onClickHandler={countHandlerFactory(plusFn)}
+        onClickHandler={countHandlerFactory(plusDelta)}
       />
       <ItemCount count={count} name={name} />
       <ItemButton
         increments={false}
-        onClickHandler={countHandlerFactory(minusFn)}
+        onClickHandler={countHandlerFactory(minusDelta)}
       />
     </div>
   )
@@ -73,7 +75,7 @@ const Item = ({ item }) => {
 export default Item
 
 function apiCommitCount(name, newCount) {
-  const nonNegCount = Math.max(newCount || 0, 0)
+  const nonNegCount = nonNegNum(newCount)
   const url = `/api?name=${name.toLowerCase()}&count=${nonNegCount}`
   return fetch(url)
     .then(res => res.text())
