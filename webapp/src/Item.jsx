@@ -10,27 +10,29 @@ const Item = ({ name }) => {
 
   const debouncedCount = useDebounce(count, 2000)
 
-  async function fetchData() {
-    const res = await fetch(`/api?name=${name.toLowerCase()}`)
-    res
-      .text()
-      .then(res => {
-        const num = Number(res)
-        if (!Number.isNaN(num)) {
-          setCountState(num)
-        } else {
-          if (!apiFetchInvalidWarned) {
-            console.log("Invalid response when fetching inventory from API.",
-              "Are we in DEV mode?")
-            apiFetchInvalidWarned = true
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch(`/api?name=${name.toLowerCase()}`)
+      res
+        .text()
+        .then(res => {
+          const num = Number(res)
+          if (!Number.isNaN(num)) {
+            setCountState(num)
+          } else {
+            if (!apiFetchInvalidWarned) {
+              console.log("Invalid response when fetching inventory from API.",
+                "Are we in DEV mode?")
+              apiFetchInvalidWarned = true
+            }
           }
-        }
-      })
-      .catch(err => console.log("Unable to fetch count for", name, ".", err))
-  }
+        })
+        .catch(err => console.log("Unable to fetch count for", name, ".", err))
+    }
 
-  // noinspection JSIgnoredPromiseFromCall
-  fetchData()
+    // noinspection JSIgnoredPromiseFromCall
+    fetchData()
+  }, [name])
 
   useEffect(
     () => {
