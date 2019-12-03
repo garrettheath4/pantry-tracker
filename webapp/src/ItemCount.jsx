@@ -1,7 +1,11 @@
 import React from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const ItemCount = ({ count, name }) => {
-  return <span className="pure-u-3-4 countNumber">{count} {name}</span>
+  const countDisplay = typeof count === 'undefined'
+    ? <FontAwesomeIcon icon="spinner" pulse />
+    : count
+  return <span className="pure-u-3-4 countNumber">{countDisplay} {name}</span>
 }
 export default ItemCount
 

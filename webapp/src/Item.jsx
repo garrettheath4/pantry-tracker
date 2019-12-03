@@ -5,7 +5,7 @@ import ItemButton from "./ItemButton"
 let apiFetchInvalidWarned = false
 
 const Item = ({ name }) => {
-  const [count, setCountState] = useState(0)
+  const [count, setCountState] = useState(undefined)
 
   useEffect(() => {
     async function fetchData() {
@@ -33,7 +33,7 @@ const Item = ({ name }) => {
 
   const countHandlerFactory = (newCount) => (
     () => {
-      const nonNegCount = Math.max(newCount, 0)
+      const nonNegCount = Math.max(newCount || 0, 0)
       setCountState(nonNegCount)
       fetch(`/api?name=${name.toLowerCase()}&count=${nonNegCount}`)
         .then(res => res.text())
