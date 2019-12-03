@@ -3,16 +3,17 @@ import ItemCount from "./ItemCount"
 import ItemButton from "./ItemButton"
 import useDebounce from "./useDebounce"
 
-let apiFetchInvalidWarned = false
+let warnedAboutHtmlRespFromFetch = false
 
 const Item = ({ name }) => {
   const [count, setCountState] = useState(undefined)
 
-  const debouncedCount = useDebounce(count, 2000)
+  const debouncedCount = useDebounce(count, 1500)
 
   useEffect(() => {
     async function fetchData() {
-      const res = await fetch(`/api?name=${name.toLowerCase()}`)
+      const url = `/api?name=${name.toLowerCase()}`
+      const res = await fetch(url)
       res
         .text()
         .then(res => {
@@ -20,10 +21,15 @@ const Item = ({ name }) => {
           if (!Number.isNaN(num)) {
             setCountState(num)
           } else {
-            if (!apiFetchInvalidWarned) {
-              console.log("Invalid response when fetching inventory from API.",
-                "Are we in DEV mode?")
-              apiFetchInvalidWarned = true
+            if (!warnedAboutHtmlRespFromFetch) {
+              warnedAboutHtmlRespFromFetch = true
+              if (res.includes("</html>")) {
+                console.log("Warning:", url, "-> HTML response (expected a number).",
+                  "Is the API not running?")
+              } else {
+                console.log("Warning: received very unexpected response from",
+                  ` API while fetching ${name.toLowerCase()}:`, res)
+              }
             }
           }
         })
@@ -38,7 +44,7 @@ const Item = ({ name }) => {
     () => {
       if (typeof debouncedCount !== "undefined") {
         // noinspection JSIgnoredPromiseFromCall
-        apiSetCount(name, debouncedCount)
+        apiCommitCount(name, debouncedCount)
       }
     },
     [debouncedCount, name]
@@ -67,19 +73,20 @@ const Item = ({ name }) => {
 }
 export default Item
 
-function apiSetCount(name, newCount) {
+function apiCommitCount(name, newCount) {
   const nonNegCount = Math.max(newCount || 0, 0)
-  return fetch(`/api?name=${name.toLowerCase()}&count=${nonNegCount}`)
+  const url = `/api?name=${name.toLowerCase()}&count=${nonNegCount}`
+  return fetch(url)
     .then(res => res.text())
     .then(res => {
       if (nonNegCount !== Number(res)) {
         const resStr = String(res)
         if (resStr.includes("</html>")) {
-          console.log("Warning: Received HTML response from API instead of",
-            "expected response of", nonNegCount)
+          console.log("Warning:", url, `-> HTML response (expected ${nonNegCount})`)
         } else {
           console.log("Warning: Did not receive expected response of",
             nonNegCount, "from API")
+          console.log("Received:", resStr)
         }
       }
     })
