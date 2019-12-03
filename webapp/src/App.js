@@ -3,7 +3,7 @@ import { library as fontAwesomeLibrary } from "@fortawesome/fontawesome-svg-core
 import { faMinus, faPlus, faSpinner } from "@fortawesome/free-solid-svg-icons"
 
 import Inventory from "./Inventory.jsx"
-import { communalItemNames, garrettItemNames } from "./ItemLists"
+import { communalItems, garrettItems } from "./ItemLists"
 import "./App.css"
 
 fontAwesomeLibrary.add(faMinus, faPlus, faSpinner)
@@ -23,7 +23,7 @@ function App() {
         Help us keep track of what snack items we have so we can know when to
         get more if we run low.
       </h5>
-      <Inventory itemNames={communalItemNames} />
+      <Inventory items={communalItems} />
       <div className="inventoryHeader">
         <button
           className="showButton"
@@ -35,7 +35,7 @@ function App() {
         </button>
       </div>
       {garrettItemsVisible
-        && <Inventory itemNames={garrettItemNames} />}
+        && <Inventory items={garrettItems} />}
     </div>
   )
 }

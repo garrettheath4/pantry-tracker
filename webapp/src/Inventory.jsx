@@ -3,17 +3,17 @@ import classnames from "classnames";
 
 import Item from "./Item.jsx"
 
-const Inventory = ({ itemNames }) => {
+const Inventory = ({ items }) => {
   return (
     <div className={classnames(
       "pure-g",
       "inventoryGrid",
       {
-        inventoryGridSmall2: itemNames.length < 3,
-        inventoryGridSmall3: itemNames.length === 3,
+        inventoryGridSmall2: items.length < 3,
+        inventoryGridSmall3: items.length === 3,
       }
     )}>
-      {itemNames.map((itemName) => <Item name={itemName} key={itemName} />)}
+      {items.map((item) => <Item item={item} key={item.name} />)}
     </div>
   )
 }

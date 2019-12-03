@@ -5,7 +5,11 @@ import useDebounce from "./useDebounce"
 
 let warnedAboutHtmlRespFromFetch = false
 
-const Item = ({ name }) => {
+const Item = ({ item }) => {
+  const { name } = item
+  const plusFn = (x) => Math.max((x || 0) + (item.increment || 1), 0)
+  const minusFn = (x) => Math.max((x || 0) - (item.decrement || 1), 0)
+
   const [count, setCountState] = useState(undefined)
 
   const debouncedCount = useDebounce(count, 1500)
@@ -50,23 +54,18 @@ const Item = ({ name }) => {
     [debouncedCount, name]
   )
 
-  const countHandlerFactory = (newCount) => (
-    () => {
-      const nonNegCount = Math.max(newCount || 0, 0)
-      setCountState(nonNegCount)
-    }
-  )
+  const countHandlerFactory = (deltaFn) => () => setCountState(deltaFn(count))
 
   return (
     <div className="pure-u-1-2 item">
       <ItemButton
         increments={true}
-        onClickHandler={countHandlerFactory(count + 1)}
+        onClickHandler={countHandlerFactory(plusFn)}
       />
       <ItemCount count={count} name={name} />
       <ItemButton
         increments={false}
-        onClickHandler={countHandlerFactory(count - 1)}
+        onClickHandler={countHandlerFactory(minusFn)}
       />
     </div>
   )
