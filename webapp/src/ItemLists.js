@@ -1,6 +1,7 @@
 export const communalItemNames = [
   "apples",
   "bananas",
+  "oranges",
 ]
 
 export const garrettItemNames = [

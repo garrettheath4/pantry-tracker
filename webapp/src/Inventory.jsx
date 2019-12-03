@@ -8,7 +8,10 @@ const Inventory = ({ itemNames }) => {
     <div className={classnames(
       "pure-g",
       "inventoryGrid",
-      { inventoryGridSmall: itemNames.length <= 2 }
+      {
+        inventoryGridSmall2: itemNames.length < 3,
+        inventoryGridSmall3: itemNames.length === 3,
+      }
     )}>
       {itemNames.map((itemName) => <Item name={itemName} key={itemName} />)}
     </div>

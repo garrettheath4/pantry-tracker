@@ -35,8 +35,12 @@ html, body {
   margin-bottom: 20px;
 }
 
-.inventoryGridSmall {
+.inventoryGridSmall2 {
   grid-template-columns: repeat(2, 1fr);
+}
+
+.inventoryGridSmall3 {
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .item {
