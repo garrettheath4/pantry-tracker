@@ -12,48 +12,49 @@ const Item = ({ item }) => {
   const plusDelta = plusDeltaGenerator(item.increment)
   const minusDelta = minusDeltaGenerator(item.decrement)
 
+  const [isInitialized, setIsInitialized] = useState(false)
   const [count, setCountState] = useState(undefined)
 
   const debouncedCount = useDebounce(count, 1500)
 
-  useEffect(() => {
-    async function fetchData() {
-      const url = `/api?name=${name.toLowerCase()}`
-      const res = await fetch(url)
-      res
-        .text()
-        .then(res => {
-          const num = Number(res)
-          if (!Number.isNaN(num)) {
-            setCountState(num)
-          } else {
-            if (!warnedAboutHtmlRespFromFetch) {
-              warnedAboutHtmlRespFromFetch = true
-              if (res.includes("</html>")) {
-                console.log("Warning:", url, "-> HTML response (expected a number).",
-                  "Is the API not running?")
-              } else {
-                console.log("Warning: received very unexpected response from",
-                  ` API while fetching ${name.toLowerCase()}:`, res)
-              }
-            }
-          }
-        })
-        .catch(err => console.log("Unable to fetch count for", name, ".", err))
+  async function fetchData() {
+    const url = `/api?name=${name.toLowerCase()}`
+    const res = await fetch(url)
+    const resText = await res.text()
+    const resNum = Number(resText)
+    if (!Number.isNaN(resNum)) {
+      setCountState(resNum)
+    } else {
+      if (!warnedAboutHtmlRespFromFetch) {
+        warnedAboutHtmlRespFromFetch = true
+        if (resText.includes("</html>")) {
+          console.log("Warning:", url, "-> HTML response (expected a number).",
+            "Is the API not running?")
+        } else {
+          console.log("Warning: received very unexpected response from",
+            ` API while fetching ${name.toLowerCase()}:`, resText)
+        }
+      }
     }
+  }
 
+  useEffect(() => {
     // noinspection JSIgnoredPromiseFromCall
     fetchData()
-  }, [name])
+  }, [])
 
   useEffect(
     () => {
       if (typeof debouncedCount !== "undefined") {
-        // noinspection JSIgnoredPromiseFromCall
-        apiCommitCount(name, debouncedCount)
+        if (isInitialized) {
+          // noinspection JSIgnoredPromiseFromCall
+          apiCommitCount(name, debouncedCount)
+        } else {
+          setIsInitialized(true)
+        }
       }
     },
-    [debouncedCount, name]
+    [debouncedCount]
   )
 
   const countHandlerFactory = (deltaFn) => () => setCountState(deltaFn(count))
