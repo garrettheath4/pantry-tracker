@@ -12,7 +12,7 @@ export const garrettItems = [
   { name: "mayonnaise", decrement: 0.1 },
   { name: "tuna cans", increment: 2 },
   { name: "chopped veggies", increment: 12 },
-  { name: "relish (backup)", decrement: 0.1 },
+  { name: "relish (backup)", increment: 6 },
   { name: "soylent Mocha drink" },
   { name: "soylent Mint Choc drink" },
   { name: "soylent Mocha powder", decrement: 0.1 },
