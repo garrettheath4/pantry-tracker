@@ -8,7 +8,7 @@ import { minusDeltaGenerator, nonNegNum, plusDeltaGenerator } from "./numbers"
 let warnedAboutHtmlRespFromFetch = false
 
 const Item = ({ item }) => {
-  const { name } = item
+  const { name: itemName } = item
   const plusDelta = plusDeltaGenerator(item.increment)
   const minusDelta = minusDeltaGenerator(item.decrement)
 
@@ -18,7 +18,7 @@ const Item = ({ item }) => {
 
   useEffect(() => {
     async function fetchData() {
-      const url = `/api?name=${name.toLowerCase()}`
+      const url = `/api/item?name=${itemName.toLowerCase()}`
       const res = await fetch(url)
       res
         .text()
@@ -34,26 +34,26 @@ const Item = ({ item }) => {
                   "Is the API not running?")
               } else {
                 console.log("Warning: received very unexpected response from",
-                  ` API while fetching ${name.toLowerCase()}:`, res)
+                  ` API while fetching ${itemName.toLowerCase()}:`, res)
               }
             }
           }
         })
-        .catch(err => console.log("Unable to fetch count for", name, ".", err))
+        .catch(err => console.log("Unable to fetch count for", itemName, ".", err))
     }
 
     // noinspection JSIgnoredPromiseFromCall
     fetchData()
-  }, [name])
+  }, [itemName])
 
   useEffect(
     () => {
       if (typeof debouncedCount !== "undefined") {
         // noinspection JSIgnoredPromiseFromCall
-        apiCommitCount(name, debouncedCount)
+        apiCommitCount(itemName, debouncedCount)
       }
     },
-    [debouncedCount, name]
+    [debouncedCount, itemName]
   )
 
   const countHandlerFactory = (deltaFn) => () => setCountState(deltaFn(count))
@@ -64,7 +64,7 @@ const Item = ({ item }) => {
         increments={true}
         onClickHandler={countHandlerFactory(plusDelta)}
       />
-      <ItemCount count={count} name={name} />
+      <ItemCount count={count} name={itemName} />
       <ItemButton
         increments={false}
         onClickHandler={countHandlerFactory(minusDelta)}
@@ -74,9 +74,9 @@ const Item = ({ item }) => {
 }
 export default Item
 
-function apiCommitCount(name, newCount) {
+function apiCommitCount(itemName, newCount) {
   const nonNegCount = nonNegNum(newCount)
-  const url = `/api?name=${name.toLowerCase()}&count=${nonNegCount}`
+  const url = `/api/item?name=${itemName.toLowerCase()}&count=${nonNegCount}`
   return fetch(url)
     .then(res => res.text())
     .then(res => {

@@ -21,7 +21,10 @@ html, body {
   font-weight: normal;
 }
 
-.showButton {
+.subtleButton {
+  height: 24px;
+  line-height: 22px;
+  margin: 5px;
   border: 1px solid lightgray;
   border-radius: 2px;
   color: lightgray;
@@ -31,7 +34,7 @@ html, body {
 .inventoryGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  min-height: 480px;
+  min-height: 430px;
   margin-bottom: 20px;
 }
 
