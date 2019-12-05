@@ -43,7 +43,7 @@ class ApiRequestHandler(BaseRequestHandler):
                                          capture_output=True,
                                          text=True,
                                          check=True,
-                                         timeout=120)
+                                         timeout=300)
                 logging.info("Update complete. Responding to request with OK.")
                 self.send_response(200)
                 self.end_headers()
