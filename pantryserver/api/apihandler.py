@@ -38,7 +38,8 @@ class ApiRequestHandler(BaseRequestHandler):
             if 'blocking' in updateQuery \
                     and str(updateQuery['blocking'][0]).lower() \
                     in ['true', '1', 'yes']:
-                process = subprocess.run(updateCommand.split(),
+                process = subprocess.run(updateCommand,
+                                         shell=True,
                                          capture_output=True,
                                          text=True,
                                          check=True,
@@ -48,7 +49,8 @@ class ApiRequestHandler(BaseRequestHandler):
                 self.end_headers()
                 self.wfile.write(bytes("OK updated app", "utf-8"))
             else:
-                process = subprocess.Popen(updateCommand.split(),
+                process = subprocess.Popen(updateCommand,
+                                           shell=True,
                                            stdout=subprocess.PIPE)
                 logging.info("Updating app. Responding to request with OK now.")
                 self.send_response(200)
