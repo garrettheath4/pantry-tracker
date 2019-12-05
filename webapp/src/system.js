@@ -1,6 +1,6 @@
 export function apiAppUpdate() {
   console.log("Sending API request to update app")
-  const url = "/api/app/update"
+  const url = "/api/app/update?blocking=true"
   fetch(url)
     .then(res => {
       console.log(res)
@@ -11,6 +11,7 @@ export function apiAppUpdate() {
         console.log("Warning:", url, "-> HTML response (expected OK).",
           "Is the API not running?")
       }
+      window.location.reload(true);
     })
     .catch(err => console.log("Error: API request to update app failed.", err))
 }

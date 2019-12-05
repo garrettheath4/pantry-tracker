@@ -18,11 +18,11 @@ class ApiRequestHandler(BaseRequestHandler):
         if not path.startswith("/api"):
             self._send_not_found()
         if path.startswith("/api/item"):
-            parsed = parse_qs(urlparse(self.path).query)
-            if 'name' in parsed:
-                itemName = parsed['name'][0]
-                if 'count' in parsed:
-                    itemCount = float(parsed['count'][0])
+            itemQuery = parse_qs(urlparse(self.path).query)
+            if 'name' in itemQuery:
+                itemName = itemQuery['name'][0]
+                if 'count' in itemQuery:
+                    itemCount = float(itemQuery['count'][0])
                     ApiRequestHandler.inventory.update(itemName, itemCount)
                 else:
                     itemCount = ApiRequestHandler.inventory.get(itemName)
@@ -34,13 +34,24 @@ class ApiRequestHandler(BaseRequestHandler):
         elif path.startswith("/api/app/update"):
             logging.info("Received API request to update app: GET /api/app/update")
             updateCommand = "git pull && cd webapp && npm run build"
-            process = subprocess.run(updateCommand.split(),
-                                     capture_output=True,
-                                     text=True,
-                                     check=True)
-            self.send_response(200)
-            self.end_headers()
-            self.wfile.write(bytes("OK updating app", "utf-8"))
+            updateQuery = parse_qs(urlparse(self.path).query)
+            if 'blocking' in updateQuery \
+                    and str(updateQuery['blocking'][0]).lower() \
+                    in ['true', '1', 'yes']:
+                process = subprocess.run(updateCommand.split(),
+                                         capture_output=True,
+                                         text=True,
+                                         check=True,
+                                         timeout=120)
+                self.send_response(200)
+                self.end_headers()
+                self.wfile.write(bytes("OK updated app", "utf-8"))
+            else:
+                process = subprocess.Popen(updateCommand.split(),
+                                           stdout=subprocess.PIPE)
+                self.send_response(200)
+                self.end_headers()
+                self.wfile.write(bytes("OK updating app", "utf-8"))
         elif path.startswith("/api/system/restart"):
             logging.warning("Received API request to restart system: GET /api/system/restart")
             rebootCommand = "sudo reboot"
