@@ -43,12 +43,14 @@ class ApiRequestHandler(BaseRequestHandler):
                                          text=True,
                                          check=True,
                                          timeout=120)
+                logging.info("Update complete. Responding to request with OK.")
                 self.send_response(200)
                 self.end_headers()
                 self.wfile.write(bytes("OK updated app", "utf-8"))
             else:
                 process = subprocess.Popen(updateCommand.split(),
                                            stdout=subprocess.PIPE)
+                logging.info("Updating app. Responding to request with OK now.")
                 self.send_response(200)
                 self.end_headers()
                 self.wfile.write(bytes("OK updating app", "utf-8"))
