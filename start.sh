@@ -12,4 +12,4 @@ git pull
 # Optional: npm run build
 cd webapp && npm run build && cd ..
 
-pipenv run python3 -m pantryserver >> $ConsoleLogFile
+pipenv run python3 -m pantryserver 2>&1 >> $ConsoleLogFile
