@@ -2,6 +2,7 @@ export const communalItems = [
   { name: "apples" },
   { name: "bananas" },
   { name: "oranges" },
+  { name: "clementines" },
 ]
 
 export const garrettItems = [
