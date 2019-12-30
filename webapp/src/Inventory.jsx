@@ -1,19 +1,19 @@
-import React from "react"
-import classnames from "classnames";
+import React from 'react'
+import classnames from 'classnames'
 
-import Item from "./Item.jsx"
+import Item from './Item.jsx'
 
 const Inventory = ({ items }) => {
   return (
-    <div className={classnames(
-      "pure-g",
-      "inventoryGrid",
-      {
+    <div
+      className={classnames('pure-g', 'inventoryGrid', {
         inventoryGridSmall2: items.length < 3,
         inventoryGridSmall3: items.length === 3,
-      }
-    )}>
-      {items.map((item) => <Item item={item} key={item.name} />)}
+      })}
+    >
+      {items.map(item => (
+        <Item item={item} key={item.name} />
+      ))}
     </div>
   )
 }

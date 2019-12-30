@@ -1,12 +1,18 @@
-import React, { useState } from "react"
-import { library as fontAwesomeLibrary } from "@fortawesome/fontawesome-svg-core"
-import { faMinus, faPlus, faSpinner, faSync, faPowerOff } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import React, { useState } from 'react'
+import { library as fontAwesomeLibrary } from '@fortawesome/fontawesome-svg-core'
+import {
+  faMinus,
+  faPlus,
+  faSpinner,
+  faSync,
+  faPowerOff,
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { apiAppUpdate, apiSystemRestart } from "./system"
-import Inventory from "./Inventory.jsx"
-import { communalItems, garrettItems } from "./ItemLists"
-import "./App.css"
+import { apiAppUpdate, apiSystemRestart } from './system'
+import Inventory from './Inventory.jsx'
+import { communalItems, garrettItems } from './ItemLists'
+import './App.css'
 
 fontAwesomeLibrary.add(faMinus, faPlus, faSpinner, faSync, faPowerOff)
 
@@ -30,10 +36,7 @@ function App() {
         <button className="subtleButton" onClick={apiAppUpdate}>
           <FontAwesomeIcon icon="sync" />
         </button>
-        <button
-          className="subtleButton"
-          onClick={toggleGarrettItemsVisible}
-        >
+        <button className="subtleButton" onClick={toggleGarrettItemsVisible}>
           {garrettItemsVisible
             ? "Hide Garrett's items"
             : "Show Garrett's items"}
@@ -42,8 +45,7 @@ function App() {
           <FontAwesomeIcon icon="power-off" />
         </button>
       </div>
-      {garrettItemsVisible
-        && <Inventory items={garrettItems} />}
+      {garrettItemsVisible && <Inventory items={garrettItems} />}
     </div>
   )
 }
