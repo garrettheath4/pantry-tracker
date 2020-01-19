@@ -31,10 +31,7 @@ class Inventory:
             return 0.0
 
     def getAll(self) -> list:
-        all_items = {}
-        for i in self.items:
-            all_items[i] = self.items[i]
-        return all_items
+        return self.items.fetch_all_items()
 
     def update(self, item_name: str, quantity: float):
         if item_name not in self.items:
