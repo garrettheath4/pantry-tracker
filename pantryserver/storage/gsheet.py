@@ -8,7 +8,11 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
 
-class GSheet:
+class GSheetInventory:
+
+    NAME_PROP = "name"
+    QUANTITY_PROP = "qty"
+    UNIT_PROP = "unit"
 
     # If modifying these scopes, delete the file token.pickle.
     SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
@@ -52,6 +56,16 @@ class GSheet:
         result = self.data_fetcher.get(spreadsheetId=self.SPREADSHEET_ID,
                                        range=self.RANGE_NAME).execute()
         return result.get('values', [])
+
+    def fetch_all_items(self):
+        items = {}
+        values = self.fetch_all_rows()
+        for [name, qty, unit] in values:
+            items[name] = {}
+            items[name][GSheetInventory.NAME_PROP] = name
+            items[name][GSheetInventory.QUANTITY_PROP] = float(qty)
+            items[name][GSheetInventory.UNIT_PROP] = unit
+        return items
 
     def _find_indexed_item_row(self, item_name: str):
         values = self.fetch_all_rows()
@@ -136,7 +150,7 @@ class GSheet:
 
 
 if __name__ == "__main__":
-    gs = GSheet()
+    gs = GSheetInventory()
     print(gs)
     print()
     print(TStr("Bananas: $qty").substitute(qty=gs.fetch_item_quantity("Banana")))

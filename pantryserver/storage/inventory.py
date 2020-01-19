@@ -1,6 +1,6 @@
 import logging
 
-from .gsheet import GSheet
+from .gsheet import GSheetInventory
 
 
 class Inventory:
@@ -11,9 +11,9 @@ class Inventory:
         self.items = items
         if type(items) == dict:
             self.source = "dict"
-        elif type(items) == GSheet:
-            self.source = "GSheet"
-            logging.debug("Inventory instantiated with GSheet object")
+        elif type(items) == GSheetInventory:
+            self.source = "GSheetInventory"
+            logging.debug("Inventory instantiated with GSheetInventory object")
         else:
             self.source = str(type(items))
             logging.warning("Inventory instantiated with unknown items object"
@@ -29,6 +29,12 @@ class Inventory:
             logging.debug("Item '%s' does not exist in inventory; reporting 0"
                           " inventory", item_name)
             return 0.0
+
+    def getAll(self) -> list:
+        all_items = {}
+        for i in self.items:
+            all_items[i] = self.items[i]
+        return all_items
 
     def update(self, item_name: str, quantity: float):
         if item_name not in self.items:

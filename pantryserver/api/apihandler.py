@@ -1,15 +1,16 @@
 import logging
 from urllib.parse import urlparse, parse_qs
 import subprocess
+import json
 
 from .basehandler import BaseRequestHandler
 from pantryserver.storage.inventory import Inventory
-from pantryserver.storage.gsheet import GSheet
+from pantryserver.storage.gsheet import GSheetInventory
 
 
 class ApiRequestHandler(BaseRequestHandler):
 
-    inventory = Inventory(GSheet())
+    inventory = Inventory(GSheetInventory())
 
     # noinspection PyPep8Naming
     def do_GET(self):
@@ -17,7 +18,13 @@ class ApiRequestHandler(BaseRequestHandler):
         logging.debug("API call: %s", path)
         if not path.startswith("/api"):
             self._send_not_found()
-        if path.startswith("/api/item"):
+        elif path == "/api/items":
+            allItems = ApiRequestHandler.inventory.getAll()
+            itemsJson = json.dumps(allItems)
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(bytes(str(allItems), "utf-8"))
+        elif path.startswith("/api/item"):
             itemQuery = parse_qs(urlparse(self.path).query)
             if 'name' in itemQuery:
                 itemName = itemQuery['name'][0]
