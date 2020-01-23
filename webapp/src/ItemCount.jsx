@@ -12,12 +12,15 @@ const ItemCount = ({ count, name }) => {
 }
 export default ItemCount
 
-const displayCount = count =>
-  typeof count === 'undefined' ? (
-    <FontAwesomeIcon icon="spinner" pulse />
-  ) : (
-    roundToOne(count)
-  )
+const displayCount = function(count) {
+  if (typeof count === 'undefined') {
+    return <FontAwesomeIcon icon="spinner" pulse />
+  } else if (count === null) {
+    return '??'
+  } else {
+    return roundToOne(count)
+  }
+}
 
 const displayName = (name, count) => {
   if (count === 1 && name.endsWith('s')) {
@@ -26,4 +29,4 @@ const displayName = (name, count) => {
   return name
 }
 
-// vim: set ts=2 sw=2 vts=2 sta sts=2 sr et ai:
+// vim: set ts=2 sw=2 sta sts=2 sr et ai:
