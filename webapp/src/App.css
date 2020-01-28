@@ -22,13 +22,14 @@ html, body {
 }
 
 .subtleButton {
-  height: 24px;
-  line-height: 22px;
+  height: 28px;
+  line-height: 24px;
   margin: 5px;
   border: 1px solid darkgray;
   border-radius: 2px;
   color: darkgray;
   background-color: white;
+  font-size: 12px;
 }
 
 .bold {
