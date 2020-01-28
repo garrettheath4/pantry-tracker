@@ -31,6 +31,10 @@ html, body {
   background-color: white;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 .inventoryGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -76,4 +80,4 @@ th, td {
   padding: 5px;
 }
 
-/* vim: set ts=2 sw=2 vts=2 sta sts=2 sr et ai: */
+/* vim: set ts=2 sw=2 sta sts=2 sr et ai: */

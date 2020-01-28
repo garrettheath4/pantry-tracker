@@ -27,6 +27,7 @@ const Item = ({ item }) => {
           if (!Number.isNaN(num)) {
             setCountState(num)
           } else {
+            setCountState(null)
             if (!warnedAboutHtmlRespFromFetch) {
               warnedAboutHtmlRespFromFetch = true
               if (res.includes('</html>')) {
@@ -46,9 +47,10 @@ const Item = ({ item }) => {
             }
           }
         })
-        .catch(err =>
+        .catch(err => {
+          setCountState(null)
           console.log('Unable to fetch count for', itemName, '.', err)
-        )
+        })
     }
 
     // noinspection JSIgnoredPromiseFromCall
@@ -56,7 +58,7 @@ const Item = ({ item }) => {
   }, [itemName])
 
   useEffect(() => {
-    if (typeof debouncedCount !== 'undefined') {
+    if (typeof debouncedCount !== 'undefined' && debouncedCount !== null) {
       // noinspection JSIgnoredPromiseFromCall
       apiCommitCount(itemName, debouncedCount)
     }
@@ -107,4 +109,4 @@ function apiCommitCount(itemName, newCount) {
     .catch(err => console.log('Unable to set item count through API', err))
 }
 
-// vim: set ts=2 sw=2 vts=2 sta sts=2 sr et ai:
+// vim: set ts=2 sw=2 sta sts=2 sr et ai si:

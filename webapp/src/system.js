@@ -15,7 +15,7 @@ export function apiAppUpdate() {
           'Is the API not running?'
         )
       }
-      window.location.reload(true)
+      window.location.reload()
     })
     .catch(err => console.log('Error: API request to update app failed.', err))
 }
