@@ -4,17 +4,14 @@ import {
   faMinus,
   faPlus,
   faSpinner,
-  faSync,
-  faPowerOff,
 } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { apiAppUpdate, apiSystemRestart } from './system'
 import Inventory from './Inventory.jsx'
 import { communalItems, garrettItems } from './ItemLists'
 import './App.css'
 
-fontAwesomeLibrary.add(faMinus, faPlus, faSpinner, faSync, faPowerOff)
+fontAwesomeLibrary.add(faMinus, faPlus, faSpinner)
 
 function App() {
   // Raspberry Pi touchscreen resolution is 800 x 480
@@ -34,15 +31,15 @@ function App() {
       <Inventory items={communalItems} />
       <div className="inventoryHeader">
         <button className="subtleButton" onClick={apiAppUpdate}>
-          <FontAwesomeIcon icon="sync" />
+          Pull, Build, & Refresh App
         </button>
-        <button className="subtleButton" onClick={toggleGarrettItemsVisible}>
+        <button className="subtleButton bold" onClick={toggleGarrettItemsVisible}>
           {garrettItemsVisible
             ? "Hide Garrett's items"
             : "Show Garrett's items"}
         </button>
         <button className="subtleButton" onClick={apiSystemRestart}>
-          <FontAwesomeIcon icon="power-off" />
+          Reboot this device
         </button>
       </div>
       {garrettItemsVisible && <Inventory items={garrettItems} />}
