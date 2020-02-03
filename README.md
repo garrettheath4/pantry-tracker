@@ -28,6 +28,23 @@ npm install
 npm run build
 ```
 
+## Configuration
+
+In order to run the server, you'll first need to create a `credentials.json`
+file that can access the Google Sheets API. You can do this the quick way or the
+advanced way.
+
+The _quick_ way to do this is to go to [this quickstart guide][QuickCreds] and
+click _Enable the Google Sheets API_ and then _Download Client Configuration_ to
+download the `credentials.json` file.
+
+The _advanced_ way to do this is to first go to the
+[Google APIs Developer Console][AdvancedCreds]. From there, click on _Configure
+Consent Screen_ and go through the process. After configuring the consent
+screen, click _Create Credentials > OAuth client ID_ and follow that process to
+get a client ID and a client secret.
+
+
 ## Usage
 
 To start the web server as a service, run:
@@ -98,6 +115,11 @@ pipenv run python3 -m pantryserver
    ```bash
    export PATH=$PATH:/usr/local/packages/nodejs/bin
    ```
+
+
+<!-- Links -->
+[QuickCreds]: https://developers.google.com/sheets/api/quickstart/python
+[AdvancedCreds]: https://console.developers.google.com/apis/credentials?authuser=0&project=quickstart-1580509776614
 
 
 <!-- vim: set ts=4 sw=4 sta sts=4 sr et: -->
