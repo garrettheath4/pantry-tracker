@@ -38,11 +38,11 @@ The _quick_ way to do this is to go to [this quickstart guide][QuickCreds] and
 click _Enable the Google Sheets API_ and then _Download Client Configuration_ to
 download the `credentials.json` file.
 
-The _advanced_ way to do this is to first go to the
-[Google APIs Developer Console][AdvancedCreds]. From there, click on _Configure
-Consent Screen_ and go through the process. After configuring the consent
-screen, click _Create Credentials > OAuth client ID_ and follow that process to
-get a client ID and a client secret.
+The _advanced_ way to do this is to first go to the [Google APIs Developer
+Console][AdvancedCreds]. From there, click on _Configure Consent Screen_ and go
+through the process to set up the consent screen with the _auth/spreadsheets_
+scope. After configuring the consent screen, click _Create Credentials > OAuth
+client ID_ and follow that process to get a client ID and a client secret.
 
 
 ## Usage
