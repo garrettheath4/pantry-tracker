@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useReducer } from 'react'
 
 import ItemCount from './ItemCount'
 import ItemButton from './ItemButton'
 import useDebounce from './useDebounce'
-import { minusDeltaGenerator, nonNegNum, plusDeltaGenerator } from './numbers'
+import { nonNegNum } from './numbers'
+import { DECREMENT, INCREMENT, initialState, reducer, UPDATE_COUNT } from './reducer'
 
 let warnedAboutHtmlRespFromFetch = false
 
 const Item = ({ item }) => {
   const { name: itemName } = item
-  const plusDelta = plusDeltaGenerator(item.increment)
-  const minusDelta = minusDeltaGenerator(item.decrement)
 
-  const [count, setCountState] = useState(undefined)
+  const [state, dispatch] = useReducer(reducer, initialState)
 
-  const debouncedCount = useDebounce(count, 1500)
+  const debouncedCount = useDebounce(
+    state.items[itemName] && state.items[itemName].count, 1500)
 
   useEffect(() => {
     async function fetchData() {
@@ -25,9 +25,9 @@ const Item = ({ item }) => {
         .then(res => {
           const num = Number(res)
           if (!Number.isNaN(num)) {
-            setCountState(num)
+            dispatch({ type: UPDATE_COUNT, payload: { name: itemName, count: num }})
           } else {
-            setCountState(null)
+            dispatch({ type: UPDATE_COUNT, payload: { name: itemName, count: null }})
             if (!warnedAboutHtmlRespFromFetch) {
               warnedAboutHtmlRespFromFetch = true
               if (res.includes('</html>')) {
@@ -48,7 +48,7 @@ const Item = ({ item }) => {
           }
         })
         .catch(err => {
-          setCountState(null)
+          dispatch({ type: UPDATE_COUNT, payload: { name: itemName, count: null }})
           console.log('Unable to fetch count for', itemName, '.', err)
         })
     }
@@ -64,18 +64,16 @@ const Item = ({ item }) => {
     }
   }, [debouncedCount, itemName])
 
-  const countHandlerFactory = deltaFn => () => setCountState(deltaFn(count))
-
   return (
     <div className="pure-u-1-2 item">
       <ItemButton
         increments={true}
-        onClickHandler={countHandlerFactory(plusDelta)}
+        onClickHandler={() => dispatch({ type: INCREMENT, payload: itemName })}
       />
-      <ItemCount count={count} name={itemName} />
+      <ItemCount count={state.items[itemName] && state.items[itemName].count} name={itemName} />
       <ItemButton
         increments={false}
-        onClickHandler={countHandlerFactory(minusDelta)}
+        onClickHandler={() => dispatch({ type: DECREMENT, payload: itemName })}
       />
     </div>
   )
