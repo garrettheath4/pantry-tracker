@@ -3,6 +3,7 @@
 A web app that helps you track what groceries you have in your pantry and fridge
 so you know what you might be low on when you go to the store.
 
+
 ## Installation
 
 You'll need Node.js to build the React UI and Python 3 to run the server.
@@ -27,6 +28,7 @@ cd webapp/
 npm install
 npm run build
 ```
+
 
 ## Configuration
 
@@ -65,6 +67,7 @@ from this repository's top level. Or you can directly run:
 pipenv run python3 -m pantryserver
 ```
 
+
 ## Development
 
 * From top-level folder of repo:
@@ -73,11 +76,13 @@ pipenv run python3 -m pantryserver
     * `npm test` - Run React unit tests only (no Python tests)
     * `npm start` - Compile and launch the React UI in dev mode (no Python API)
 
+
 ## Dependencies
 
 * React - webapp UI
 * Python 3 - server for React UI and API
 * Node.js and NPM - dependency management and build tool
+
 
 ## Install Node.js on Raspberry Pi
 
@@ -115,6 +120,34 @@ pipenv run python3 -m pantryserver
    ```bash
    export PATH=$PATH:/usr/local/packages/nodejs/bin
    ```
+
+
+## Troubleshooting
+
+### Google Refresh Error
+
+If the Python console has the following error after you try to start the server
+process:
+
+```
+google.auth.exceptions.RefreshError: ('deleted_client: The OAuth client was
+deleted.', '{\n  "error": "deleted_client",\n  "error_description": "The OAuth
+client was deleted."\n}')
+```
+
+then simply delete the `token.pickle` file and restart the Python server. The
+server will then launch a web browser with a google.com page to allow you to
+authenticate to your Google account.
+
+
+### Lots of 404's
+
+If you see the error `code 404, message File Not Found` in the Python console
+multiple times then it probably means the React webapp's URL prefix is set
+incorrectly. Check the value of the `"homepage"` key in `webapp/package.json`.
+You should probably delete the `"homepage"` configuration line unless you're
+hosting the web app on GitHub.io (for example:
+`"homepage": "http://garrettheath4.github.io/pantry-tracker",`).
 
 
 <!-- Links -->

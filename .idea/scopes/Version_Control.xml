@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Version Control" pattern="file[pantry-tracker]:*/&amp;&amp;!file[pantry-tracker]:webapp/build//*&amp;&amp;!file[pantry-tracker]:webapp/node_modules//*" />
+</component>
