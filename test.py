@@ -16,11 +16,13 @@ class TestGSheetBase(unittest.TestCase):
         gs = GSheetInventory()
         self.assertEqual(gs.fetch_item_quantity("Nonexistent item"), 0.0)
 
+    # noinspection SpellCheckingInspection
     def test_gsheet_fetch_all_rows(self):
         gs = GSheetInventory()
         rows = gs.fetch_all_rows()
         self.assertNotEqual(len(rows), 0)
 
+    # noinspection SpellCheckingInspection
     def test_gsheet_fetch_all_items(self):
         gs = GSheetInventory()
         items = gs.fetch_all_items()
@@ -29,6 +31,7 @@ class TestGSheetBase(unittest.TestCase):
         self.assertNotEqual(items["Peanut butter"]["qty"], 0.0)
         self.assertEqual(items["Peanut butter"]["unit"], "bottles (16 oz)")
 
+    # noinspection SpellCheckingInspection
     def test_gsheet_find_item_row(self):
         gs = GSheetInventory()
         item = gs.find_item_row("Peanut butter")
